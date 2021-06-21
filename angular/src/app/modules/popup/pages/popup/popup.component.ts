@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IssueService } from 'src/app/services/issue.service';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: 'popup.component.html',
   styleUrls: ['popup.component.scss']
 })
-export class PopupComponent implements OnInit {
+export class PopupComponent implements OnInit, OnDestroy {
   fileList = [];
   tagList = [];
   message: string;
@@ -29,7 +29,7 @@ export class PopupComponent implements OnInit {
     tags: new FormControl('', [Validators.required]),
     priority: new FormControl('', [Validators.required]),
     file: new FormControl('')
-  }, {updateOn: 'submit'});
+  });
 
   constructor(private issueService: IssueService) {
     this.issueService.getTags().subscribe((response: any) => {
@@ -52,18 +52,24 @@ export class PopupComponent implements OnInit {
     formData.append('priority', this.issueForm.get('priority').value);
     formData.append('file', this.issueForm.get('file').value);
 
-    if (this.issueForm.valid && this.fileList) {
+    if (this.issueForm.valid && this.fileList) { 
       this.issueService.createIssue(formData).subscribe(response => {
         if (response) {
           this.message = 'Your issue is sent';
           this.messageType = 'success';
+          this.isLoading = false;
+          this.issueForm.reset();
         }
       }, (errorResponse) => {
         this.message = errorResponse.error.message;
         this.messageType = 'error';
+        this.isLoading = false;
+        this.issueForm.reset();
       });
+    } else {
       this.isLoading = false;
-      this.issueForm.reset();
+      this.message = 'Please, fill all fields';
+      this.messageType = 'error';
     }
   
   }
@@ -89,6 +95,10 @@ export class PopupComponent implements OnInit {
     });
   }
 
+  closePopup() {
+    window.close();
+    this.issueForm.reset();
+  }
 
   ngOnDestroy(): void {
     this.issueForm = null;

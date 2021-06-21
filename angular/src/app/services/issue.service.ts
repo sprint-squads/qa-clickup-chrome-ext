@@ -11,7 +11,6 @@ export class IssueService {
   }
 
   createIssue(body) {
-\\
     return this.http.post('http://84.252.128.7:4000/v1/clickup/issues', body,);
   }
 }

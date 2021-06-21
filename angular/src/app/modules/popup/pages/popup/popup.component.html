@@ -1,7 +1,7 @@
 <div class="popup-wrapper">
   <h1>New issue</h1>
   <div class="message-block" *ngIf="message" [ngClass]="messageType">
-    <p>{{message}}</p>
+    <p>{{ message }}</p>
   </div>
   <form class="row" [formGroup]="issueForm" (ngSubmit)="sendIssue()">
     <div class="col col-6">
@@ -16,7 +16,7 @@
                 aria-label="Select tag"
                 formControlName="tags">
           <option value="" [disabled]="true">Select tag</option>
-          <option *ngFor="let tag of tagList" value="{{tag.name}}">{{tag.name}}</option>
+          <option *ngFor="let tag of tagList" value="{{tag.name}}">{{ tag.name }}</option>
         </select>
       </div>
       <div class="form-group">
@@ -24,14 +24,14 @@
                 aria-label="Select priority"
                 formControlName="priority">
           <option value="" [disabled]="true">Select priority</option>
-          <option *ngFor="let priority of priorityList" value="{{priority.value}}">{{priority.name}}</option>
+          <option *ngFor="let priority of priorityList" value="{{priority.value}}">{{ priority.name }}</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary btn-submit">Submit</button>
-      <div class="spinner-border text-primary" *ngIf="isLoading">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <button type="button" class="btn btn-cancel">Cancel</button>
+      <button type="submit" class="btn btn-primary btn-submit">
+        <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isLoading"></div>
+        <span *ngIf="!isLoading">Submit</span>
+      </button>
+      <button type="button" class="btn btn-cancel" (click)="closePopup()">Cancel</button>
     </div>
     <div class="col col-6">
       <div class="file-select">
