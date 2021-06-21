@@ -1,7 +1,84 @@
 .popup {
-  &-wrapper {
-    width: 500px;
-    height: 500px;
+    &-wrapper {
+        width: 500px;
+        // height: 480px;
+        padding: 32px;
+    }
+}
+
+.form-group {
+    margin: 15px 0;
+}
+
+.form-floating {
+    textarea {
+        width: 100%;
+        height: 150px;
+    }      
+}
+
+.file-select {
+    margin: 15px 0;
+    text-align: center;
+
+    input {
+        display: none;
+    }
+
+    label {
+        border: 2px dotted #bbd4fa;
+        padding: 5px;
+        font-size: 15px;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 0.25rem;
+    }
+}
+
+.file-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.attachment-img {
+    position: relative;
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+    background: url('../../../../../assets/attachment-img.svg') no-repeat center;
+}
+
+
+.close {
+    position: relative;
+    background-size: cover;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    background: url('../../../../../assets/close.svg') no-repeat center;
+}
+
+.btn-submit {
+    width: 100px;
+    margin-right: 20px;
+}
+
+.message-block {
+    border-radius: 0.25rem;
     padding: 10px;
-  }
+
+    &.success {
+        background: #d9ffd9;
+    }
+
+    &.error {
+        background: #ffa196;
+    }
+
+    p {
+        margin: 0;
+    }
 }

@@ -1,10 +1,56 @@
 <div class="popup-wrapper">
-
-<h1>Popup</h1>
-<p>You can easily send messages from the popup to the content page with the provided Tab ID!
-  (tabId=<strong>{{ tabId }}</strong>)</p>
-
-<button (click)="onClick()">Click me to test</button>
-
-<p><strong>{{ message }}</strong></p>
+  <h1>New issue</h1>
+  <div class="message-block" *ngIf="message" [ngClass]="messageType">
+    <p>{{message}}</p>
+  </div>
+  <form class="row" [formGroup]="issueForm" (ngSubmit)="sendIssue()">
+    <div class="col col-6">
+      <div class="form-group">
+        <input type="text" id="title" class="form-control" placeholder="Title" formControlName="title">
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" formControlName="description" maxlength="255" style="resize: none" placeholder="Description" id="description" [rows]="5"></textarea>
+      </div>
+      <div class="form-group">
+        <select class="form-select"
+                aria-label="Select tag"
+                formControlName="tags">
+          <option value="" [disabled]="true">Select tag</option>
+          <option *ngFor="let tag of tagList" value="{{tag.name}}">{{tag.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <select class="form-select"
+                aria-label="Select priority"
+                formControlName="priority">
+          <option value="" [disabled]="true">Select priority</option>
+          <option *ngFor="let priority of priorityList" value="{{priority.value}}">{{priority.name}}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-submit">Submit</button>
+      <div class="spinner-border text-primary" *ngIf="isLoading">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <button type="button" class="btn btn-cancel">Cancel</button>
+    </div>
+    <div class="col col-6">
+      <div class="file-select">
+        <input id="myFile"
+               name="myFile"
+              type="file"
+              accept="image/*"
+              (change)="onFileChange($event)">
+        <label *ngIf="fileList?.length < 5" for="myFile" class="attachment-button" label="Send">
+          Drop files here click to select
+        </label>
+        <div *ngIf="fileList?.length > 0">
+          <div class="file-info" *ngFor="let file of fileList">
+            <i class="attachment-img"></i>
+            <small>{{ file.name }}</small>
+            <i class="close" (click)="removeFile(file)"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
