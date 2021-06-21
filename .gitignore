@@ -102,3 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+/.idea/.gitignore
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/qa-clickup-chrome-extension.iml
+/.idea/vcs.xml
