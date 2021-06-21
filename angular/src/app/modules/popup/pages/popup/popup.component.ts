@@ -50,15 +50,26 @@ export class PopupComponent implements OnInit, OnDestroy {
     formData.append('description', this.issueForm.get('description').value);
     formData.append('tags', this.issueForm.get('tags').value);
     formData.append('priority', this.issueForm.get('priority').value);
-    formData.append('file', this.issueForm.get('file').value);
-
+    if (this.fileList && this.fileList.length > 0)
+    this.fileList.forEach(item => {
+      this.issueForm.patchValue({
+        file: item
+      });
+      formData.append('file', this.issueForm.get('file').value);
+    });
     if (this.issueForm.valid && this.fileList) { 
       this.issueService.createIssue(formData).subscribe(response => {
         if (response) {
           this.message = 'Your issue is sent';
           this.messageType = 'success';
           this.isLoading = false;
-          this.issueForm.reset();
+          setTimeout(() => {
+            this.issueForm.patchValue({
+              file: ''
+            });
+            this.fileList = [];
+            this.issueForm.reset();
+          }, 3000);
         }
       }, (errorResponse) => {
         this.message = errorResponse.error.message;
@@ -83,9 +94,6 @@ export class PopupComponent implements OnInit, OnDestroy {
 
   onFileChange(event) {
     this.fileList.push(event.target.files[0]);
-    this.issueForm.patchValue({
-      file: this.fileList
-    });
   }
 
   onValueChanges(): void {
