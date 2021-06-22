@@ -19,6 +19,10 @@ You can find your source files (TypeScript) over there.
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
+## Live reload 
+
+Run `ng build --watch --configuration=dev` for a live reload. Navigate to `chrome://extensions/`. The extension will automatically reload if you change any of the source files.
+
 ## Build for production
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. 

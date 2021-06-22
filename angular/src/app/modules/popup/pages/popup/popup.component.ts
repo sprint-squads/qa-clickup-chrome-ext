@@ -58,25 +58,25 @@ export class PopupComponent implements OnInit, OnDestroy {
       formData.append('file', this.issueForm.get('file').value);
     });
     if (this.issueForm.valid && this.fileList) { 
-      // this.issueService.createIssue(formData).subscribe(response => {
-      //   if (response) {
-      //     this.message = 'Your issue is sent';
-      //     this.messageType = 'success';
-      //     this.isLoading = false;
-      //     setTimeout(() => {
-      //       this.issueForm.patchValue({
-      //         file: ''
-      //       });
-      //       this.fileList = [];
-      //       this.issueForm.reset();
-      //     }, 3000);
-      //   }
-      // }, (errorResponse) => {
-      //   this.message = errorResponse.error.message;
-      //   this.messageType = 'error';
-      //   this.isLoading = false;
-      //   this.issueForm.reset();
-      // });
+      this.issueService.createIssue(formData).subscribe(response => {
+        if (response) {
+          this.message = 'Your issue is sent';
+          this.messageType = 'success';
+          this.isLoading = false;
+          setTimeout(() => {
+            this.issueForm.patchValue({
+              file: ''
+            });
+            this.fileList = [];
+            this.issueForm.reset();
+          }, 3000);
+        }
+      }, (errorResponse) => {
+        this.message = errorResponse.error.message;
+        this.messageType = 'error';
+        this.isLoading = false;
+        this.issueForm.reset();
+      });
     } else {
       this.isLoading = false;
       this.message = 'Please, fill all fields';
