@@ -28,7 +28,7 @@
         </select>
       </div>
       <button type="submit" class="btn btn-primary btn-submit">
-        <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="isLoading"></div>
+        <div class="spinner spinner-border spinner-border-sm" role="status" *ngIf="isLoading"></div>
         <span *ngIf="!isLoading">Submit</span>
       </button>
       <button type="button" class="btn btn-cancel" (click)="closePopup()">Cancel</button>
